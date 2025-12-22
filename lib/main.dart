@@ -67,33 +67,46 @@ class _MyFulSidgetStateState extends State<MyFulSidgetState> {
     print("dispose阶段执行");
     super.dispose();
   }
-
+  int count = 0;
   @override
   Widget build(BuildContext context) {
     print("build阶段执行");
-    return Container(child: null);
-  }
-}
-
-// 无状态组件的生命周期
-// 1. 构造函数
-// 2. build方法
-// 3. 组件树渲染完成
-// 4. 组件树销毁
-// 当组件被创建或父组件发生变化时，会调用build方法重新构建组件树
-class MainPage extends StatelessWidget {
-  const MainPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    print("build");
     return MaterialApp(
-      title: "MyScaffold",
-      theme: ThemeData(scaffoldBackgroundColor: Colors.blue),
-      home: Scaffold(
-        appBar: AppBar(title: Text("MyAppaBar")),
-        body: Container(child: Center(child: Text("中央区域a"))),
+      title: "MyApp",
+      theme: ThemeData(
+        // 使用本地支持中文的字体
+        fontFamily: 'NotoSansSC',
       ),
-    );
+      home: Scaffold(
+        appBar: AppBar(title: Text("MyAppBar")),
+        body: Center(
+          child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children:[
+            Text("中文测试：这是一段中文字符"),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children:[
+                TextButton(onPressed: (){
+                  setState(() {
+                    print("点击了减号按钮");
+                    count--;
+                  });
+                }, child: Text("-")),
+                SizedBox(width: 20),
+                Text("当前计数：${count.toString()}"),
+                SizedBox(width: 20),
+                TextButton(onPressed: (){
+                  setState(() {
+                    print("点击了加号按钮");
+                    count++;
+                  });
+                }, child: Text("+")),
+              ]
+            ),
+          ]
+        ))),
+      );
   }
 }
