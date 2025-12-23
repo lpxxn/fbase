@@ -1,0 +1,29 @@
+{
+  // 保存时自动格式化代码
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  
+  // 为 Dart 代码指定默认格式化器
+  "[dart]": {
+    "editor.defaultFormatter": "Dart-Code.dart-code",
+    "editor.formatOnSave": true
+  },
+  
+  // 启用 Dart 代码 lint 验证
+  "dart.enableLintWarnings": true,
+  
+  // 配置 Dart 分析服务
+  "dart.analysisExcludedFolders": [
+    "/build",
+    "/.dart_tool"
+  ],
+  
+  // 启用代码补全和快速修复
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  }
+}

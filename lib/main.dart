@@ -67,6 +67,7 @@ class _MyFulSidgetStateState extends State<MyFulSidgetState> {
     print("dispose阶段执行");
     super.dispose();
   }
+
   int count = 0;
   @override
   Widget build(BuildContext context) {
@@ -81,42 +82,50 @@ class _MyFulSidgetStateState extends State<MyFulSidgetState> {
         appBar: AppBar(title: Text("MyAppBar")),
         body: Center(
           child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children:[
-            Text("中文测试：这是一段中文字符"),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children:[
-                TextButton(onPressed: (){
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("中文测试：这是一段中文字符"),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        print("点击了减号按钮");
+                        count--;
+                      });
+                    },
+                    child: Text("-"),
+                  ),
+                  SizedBox(width: 20),
+                  Text("当前计数：${count.toString()}"),
+                  SizedBox(width: 20),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        print("点击了加号按钮");
+                        count++;
+                      });
+                    },
+                    child: Text("+"),
+                  ),
+                ],
+              ),
+              GestureDetector(
+                onTap: () {
+                  print("点击了文本");
                   setState(() {
-                    print("点击了减号按钮");
-                    count--;
-                  });
-                }, child: Text("-")),
-                SizedBox(width: 20),
-                Text("当前计数：${count.toString()}"),
-                SizedBox(width: 20),
-                TextButton(onPressed: (){
-                  setState(() {
-                    print("点击了加号按钮");
+                    print("点击了文本，更新计数");
                     count++;
                   });
-                }, child: Text("+")),
-              ]
-            ),
-            GestureDetector(
-              onTap: (){
-                print("点击了文本");
-                setState(() {
-                  print("点击了文本，更新计数");
-                  count++;
-                });
-              },
-              child: Text("点击我"),
-            ),
-          ]
-        ))),
-      );
+                },
+                child: Text("点击我"),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
