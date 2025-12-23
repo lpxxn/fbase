@@ -105,6 +105,16 @@ class _MyFulSidgetStateState extends State<MyFulSidgetState> {
                 }, child: Text("+")),
               ]
             ),
+            GestureDetector(
+              onTap: (){
+                print("点击了文本");
+                setState(() {
+                  print("点击了文本，更新计数");
+                  count++;
+                });
+              },
+              child: Text("点击我"),
+            ),
           ]
         ))),
       );
