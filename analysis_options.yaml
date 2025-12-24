@@ -34,6 +34,5 @@ linter:
     curly_braces_in_flow_control_structures: true
     prefer_is_empty: true
     prefer_is_not_empty: true
-
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
