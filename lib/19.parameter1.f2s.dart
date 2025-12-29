@@ -5,11 +5,16 @@ void main(List<String> args) {
     MaterialApp(
       title: "父传子",
       theme: ThemeData(fontFamily: 'NotoSansSC'),
-      home: Scaffold(
-        body: Container(
-          child: const Column(
-            children: [MainPage(), SizedBox(height: 20), _MainStatePage()],
-          ),
+      home: const Scaffold(
+        body: Column(
+          children: [
+            MainPage(),
+            SizedBox(height: 20),
+            Expanded(child: _MainStatePage()), // _MainStatePageState 组件消失的问题。
+            //问题原因 ：在 main() 函数中， _MainStatePage() 组件被直接放在外层的 Column 的 children 列表中，
+            //而 _MainStatePageState 内部又有一个 Column 包裹着 Expanded 。由于 Expanded 需要在父容器具有确定的约束条件时才能正确工作，
+            //但外层 Column 没有给 _MainStatePage 组件足够的高度约束，导致整个组件无法正确渲染。
+          ],
         ),
       ),
     ),
@@ -32,15 +37,28 @@ class _MainStatePage extends StatefulWidget {
 }
 
 class _MainStatePageState extends State<_MainStatePage> {
+  var list = ["红烧肉", "鱼香肉丝", "青椒肉丝", "佛跳墙", "西芹肉丝"];
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Column(
-        children: [
-          Text("父组件"),
-          childStatePage(message: "我是子组件传递的消息"),
-        ],
-      ),
+    return Column(
+      children: [
+        const Text("父组件"),
+        const childStatePage(message: "我是子组件传递的消息"),
+        const SizedBox(height: 20),
+        Expanded(
+          child: GridView.count(
+            padding: const EdgeInsets.all(10),
+            crossAxisCount: 2,
+            mainAxisSpacing: 10, // 主轴方向间距
+            crossAxisSpacing: 5, // 交叉轴方向间距
+            // children: list.map((e) => childStatePage2(message: e)).toList(),
+            children: List.generate(
+              list.length,
+              (index) => childStatePage2(message: list[index]),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -57,6 +75,28 @@ class _childStatePageState extends State<childStatePage> {
   @override
   Widget build(BuildContext context) {
     return Container(child: Text(widget.message ?? ""));
+  }
+}
+
+class childStatePage2 extends StatefulWidget {
+  final String? message;
+  const childStatePage2({super.key, required String this.message});
+
+  @override
+  _childStatePageState2 createState() => _childStatePageState2();
+}
+
+class _childStatePageState2 extends State<childStatePage2> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.blue,
+      alignment: Alignment.center,
+      child: Text(
+        widget.message ?? "没有数据",
+        style: const TextStyle(fontSize: 20, color: Colors.white),
+      ),
+    );
   }
 }
 
