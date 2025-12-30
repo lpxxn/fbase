@@ -35,6 +35,13 @@ class _mainPageState extends State<MainPage> {
 
         return null;
       },
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) =>
+              const Scaffold(body: Center(child: Text("404"))),
+        );
+      },
     );
   }
 }
@@ -110,8 +117,15 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("登录")),
-      body: Center(
-        child: TextButton(onPressed: () {}, child: const Text("去登录")),
+      body: Column(
+        children: [
+          TextButton(
+            onPressed: () {
+              Navigator.popAndPushNamed(context, "/404");
+            },
+            child: const Text("去登录"),
+          ),
+        ],
       ),
     );
   }
