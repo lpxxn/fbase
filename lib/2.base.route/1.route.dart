@@ -81,7 +81,15 @@ class _DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("详情")),
-      body: Text("${widget.index} ${widget.msg}"),
+      body: Container(
+        alignment: Alignment.center,
+        child: TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text("${widget.index} ${widget.msg}\n点击返回列表"),
+        ),
+      ),
     );
   }
 }
