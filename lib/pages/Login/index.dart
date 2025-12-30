@@ -4,15 +4,12 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  _nameState createState() => _nameState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _nameState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("登录")),
-      body: Container(child: const Column(children: [Text("登录")])),
-    );
+    return Scaffold(appBar: AppBar(title: const Text("登录")));
   }
 }
