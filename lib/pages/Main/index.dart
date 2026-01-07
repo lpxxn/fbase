@@ -49,11 +49,22 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  List<Widget> _getChildren() {
+    return [
+      const Text("首页"),
+      const Text("分类"),
+      const Text("购物车"),
+      const Text("我的"),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(title: const Text("主页面")),
-      body: Container(child: const Text("主页面")),
+      body: SafeArea(
+        child: IndexedStack(index: _currentIndex, children: _getChildren()),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.black,
         showUnselectedLabels: true,
