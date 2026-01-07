@@ -1,3 +1,7 @@
+import 'package:fbase/pages/Cart/index.dart';
+import 'package:fbase/pages/Category/index.dart';
+import 'package:fbase/pages/Home/index.dart';
+import 'package:fbase/pages/Mine/index.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
@@ -51,10 +55,10 @@ class _MainPageState extends State<MainPage> {
 
   List<Widget> _getChildren() {
     return [
-      const Text("首页"),
-      const Text("分类"),
-      const Text("购物车"),
-      const Text("我的"),
+      const HomeView(),
+      const CategoryView(),
+      const CartView(),
+      const MineView(),
     ];
   }
 
@@ -69,6 +73,7 @@ class _MainPageState extends State<MainPage> {
         selectedItemColor: Colors.black,
         showUnselectedLabels: true,
         unselectedItemColor: Colors.grey,
+        // type: BottomNavigationBarType.fixed,
         onTap: (index) {
           _logger.i("onTap index is $index");
           setState(() {
