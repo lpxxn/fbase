@@ -24,9 +24,10 @@ class _HmcategoryState extends State<Hmcategory> {
             width: 80,
             height: 100,
             color: Colors.blue,
-            margin: index == 0
-                ? EdgeInsets.zero
-                : const EdgeInsets.only(left: 10),
+            // margin: index == 0
+            //     ? EdgeInsets.zero
+            //     : const EdgeInsets.only(left: 10),
+            margin: EdgeInsets.only(left: index == 0 ? 0 : 10),
             child: Text(
               "分类$index",
               style: const TextStyle(color: Colors.white),
