@@ -12,6 +12,11 @@ class Hmsuggestion extends StatefulWidget {
 class _HmsuggestionState extends State<Hmsuggestion> {
   @override
   Widget build(BuildContext context) {
-    return Container(child: null);
+    return Container(
+      alignment: Alignment.center,
+      height: 300,
+      color: Colors.blue,
+      child: const Text("推荐", style: TextStyle(color: Colors.white)),
+    );
   }
 }
