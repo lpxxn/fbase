@@ -1,5 +1,6 @@
 import 'package:fbase/components/Home/HmCategory.dart';
 import 'package:fbase/components/Home/HmHot.dart';
+import 'package:fbase/components/Home/HmMoretList.dart';
 import 'package:fbase/components/Home/HmSlider.dart';
 import 'package:fbase/components/Home/HmSuggestion.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,8 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
       ),
+      const SliverToBoxAdapter(child: SizedBox(height: 10)),
+      const HmMoretList(),
     ];
   }
 
