@@ -102,13 +102,16 @@ class _HmsliderState extends State<Hmslider> {
                   _currentIndex = index;
                 });
               },
-              child: Container(
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(left: index == 0 ? 0 : 5),
                 height: 6,
-                width: 40,
+                width: index == _currentIndex ? 40 : 20,
                 decoration: BoxDecoration(
-                  color: index == _currentIndex ? Colors.blue : Colors.grey,
+                  color: index == _currentIndex
+                      ? Colors.white
+                      : const Color.fromRGBO(0, 0, 0, 0.3),
                   borderRadius: BorderRadius.circular(3),
                 ),
                 child: Text("${index + 1}"),
