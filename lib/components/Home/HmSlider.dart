@@ -13,10 +13,13 @@ class Hmslider extends StatefulWidget {
 }
 
 class _HmsliderState extends State<Hmslider> {
+  final CarouselSliderController _carouselController =
+      CarouselSliderController();
   Widget _getSlider() {
     final width = MediaQuery.of(context).size.width;
     debugPrint("width: $width");
     return CarouselSlider(
+      carouselController: _carouselController,
       items: List.generate(widget.bannerItems.length, (int index) {
         return Image.network(
           widget.bannerItems[index].imgUrl!,
@@ -24,13 +27,27 @@ class _HmsliderState extends State<Hmslider> {
           width: width,
         );
       }),
-      options: CarouselOptions(viewportFraction: 1),
+      options: CarouselOptions(
+        viewportFraction: 1,
+        autoPlay: true,
+        // autoPlayInterval: const Duration(seconds: 2),
+        onPageChanged: (index, reason) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ),
     );
   }
 
   Widget _getSearch() {
     return Positioned(
+      // top:0 表示距离父容器（Stack）顶部0像素
       top: 0,
+      // left:0 和 right:0 同时设置的作用：
+      // 1. 水平方向定位：组件左边缘距离父容器左边0像素，右边缘距离父容器右边0像素
+      // 2. 宽度计算：组件宽度会自动扩展为父容器宽度减去left和right的值（这里是全屏宽度）
+      // 3. 如果只设置其中一个（如只设置left:0），则组件宽度由其内容决定，不会充满屏幕
       left: 0,
       right: 0,
       child: Padding(
@@ -63,8 +80,48 @@ class _HmsliderState extends State<Hmslider> {
     );
   }
 
+  int _currentIndex = 0;
+  Widget _getDots() {
+    return Positioned(
+      // bottom:10 表示距离父容器（Stack）底部10像素
+      bottom: 10,
+      // 同样使用left:0和right:0来实现水平方向充满父容器
+      // 这样Row组件可以居中对齐指示器，并且宽度适应屏幕
+      left: 0,
+      right: 0,
+      child: SizedBox(
+        height: 40,
+        width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(widget.bannerItems.length, (int index) {
+            return GestureDetector(
+              onTap: () {
+                _carouselController.animateToPage(index);
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+              child: Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.only(left: index == 0 ? 0 : 5),
+                height: 6,
+                width: 40,
+                decoration: BoxDecoration(
+                  color: index == _currentIndex ? Colors.blue : Colors.grey,
+                  borderRadius: BorderRadius.circular(3),
+                ),
+                child: Text("${index + 1}"),
+              ),
+            );
+          }),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [_getSlider(), _getSearch()]);
+    return Stack(children: [_getSlider(), _getSearch(), _getDots()]);
   }
 }
