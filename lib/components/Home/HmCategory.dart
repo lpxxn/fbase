@@ -35,11 +35,13 @@ class _HmCategoryState extends State<HmCategory> {
                   height: 60,
                   decoration: BoxDecoration(
                     color: Colors.grey,
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   child:
                       category.picture != null && category.picture!.isNotEmpty
                       ? ClipOval(
+                          // child: Image.asset("lib/asset/images/ic_sku_img.svg"),
+                          // child: Image.asset("lib/asset/images/1.jpg"),
                           child: Image.network(
                             category.picture!,
                             width: 60,
@@ -47,7 +49,7 @@ class _HmCategoryState extends State<HmCategory> {
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) =>
                                 // const Icon(Icons.error),
-                                Image.asset("lib/asset/images/ic_sku_img.svg"),
+                                Image.asset("lib/asset/images/1.jpg"),
                           ),
                         )
                       : Icon(Icons.category, color: Colors.grey[400], size: 30),
