@@ -1,15 +1,18 @@
 // 首页分类
 
+import 'package:fbase/viewmodels/home.dart';
 import 'package:flutter/material.dart';
 
-class Hmcategory extends StatefulWidget {
-  const Hmcategory({super.key});
+class HmCategory extends StatefulWidget {
+  final List<Category> categoryItems;
+
+  const HmCategory({super.key, required this.categoryItems});
 
   @override
-  _HmcategoryState createState() => _HmcategoryState();
+  _HmCategoryState createState() => _HmCategoryState();
 }
 
-class _HmcategoryState extends State<Hmcategory> {
+class _HmCategoryState extends State<HmCategory> {
   @override
   Widget build(BuildContext context) {
     // 返回一一个点横向滚动的组件
@@ -17,20 +20,41 @@ class _HmcategoryState extends State<Hmcategory> {
       height: 100,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 10,
+        itemCount: widget.categoryItems.length,
         itemBuilder: (context, index) {
+          final category = widget.categoryItems[index];
           return Container(
             alignment: Alignment.center,
             width: 80,
-            height: 100,
-            color: Colors.blue,
-            // margin: index == 0
-            //     ? EdgeInsets.zero
-            //     : const EdgeInsets.only(left: 10),
-            margin: EdgeInsets.only(left: index == 0 ? 0 : 10),
-            child: Text(
-              "分类$index",
-              style: const TextStyle(color: Colors.white),
+            margin: EdgeInsets.symmetric(horizontal: index == 0 ? 0 : 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child:
+                      category.picture != null && category.picture!.isNotEmpty
+                      ? ClipOval(
+                          child: Image.network(
+                            category.picture!,
+                            width: 60,
+                            height: 60,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                // const Icon(Icons.error),
+                                Image.asset("lib/asset/images/ic_sku_img.svg"),
+                          ),
+                        )
+                      : Icon(Icons.category, color: Colors.grey[400], size: 30),
+                ),
+                const SizedBox(height: 5),
+                Text(category.name ?? "", style: const TextStyle(fontSize: 12)),
+              ],
             ),
           );
         },

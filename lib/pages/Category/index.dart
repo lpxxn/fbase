@@ -1,4 +1,3 @@
-import 'package:fbase/components/Home/HmCategory.dart';
 import 'package:flutter/material.dart';
 
 class CategoryView extends StatefulWidget {
@@ -11,6 +10,6 @@ class CategoryView extends StatefulWidget {
 class _CategoryViewState extends State<CategoryView> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Hmcategory());
+    return const Scaffold(body: Text("分类"));
   }
 }

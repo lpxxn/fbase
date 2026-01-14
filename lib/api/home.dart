@@ -9,3 +9,11 @@ Future<List<BannerItem>> getBannerListAPI() async {
       .toList();
   return ret;
 }
+
+Future<List<Category>> getCategoryListAPI() async {
+  final responseData = await dioRequest.get(HttpConstants.CATEGORY_LIST);
+  final ret = (responseData as List)
+      .map((item) => Category.fromJson(item))
+      .toList();
+  return ret;
+}
