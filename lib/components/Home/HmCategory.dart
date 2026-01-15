@@ -55,7 +55,10 @@ class _HmCategoryState extends State<HmCategory> {
                       : Icon(Icons.category, color: Colors.grey[400], size: 30),
                 ),
                 const SizedBox(height: 5),
-                Text(category.name ?? "", style: const TextStyle(fontSize: 12)),
+                Text(
+                  category.name ?? "",
+                  style: const TextStyle(fontSize: 12, color: Colors.black87),
+                ),
               ],
             ),
           );
