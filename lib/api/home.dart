@@ -25,3 +25,17 @@ Future<SpecialRecommendSection> getSpecialRecommendSectionAPI() async {
   final ret = SpecialRecommendSection.fromJson(responseData);
   return ret;
 }
+
+// 热榜推荐
+Future<SpecialRecommendSection> getInVogueListAPI() async {
+  final responseData = await dioRequest.get(HttpConstants.IN_VOGUE_LIST);
+  final ret = SpecialRecommendSection.fromJson(responseData);
+  return ret;
+}
+
+// 一站式推荐
+Future<SpecialRecommendSection> getOneStopListAPI() async {
+  final responseData = await dioRequest.get(HttpConstants.ONE_STOP_LIST);
+  final ret = SpecialRecommendSection.fromJson(responseData);
+  return ret;
+}

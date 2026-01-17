@@ -70,8 +70,12 @@ class _HmsuggestionState extends State<Hmsuggestion> {
             borderRadius: BorderRadius.circular(8),
             child: Image.network(
               list[index].picture ?? "",
-              errorBuilder: (context, error, stackTrace) =>
-                  Image.asset("lib/asset/images/1.jpg"),
+              errorBuilder: (context, error, stackTrace) => Image.asset(
+                "lib/asset/images/1.jpg",
+                width: 100,
+                height: 140,
+                fit: BoxFit.cover,
+              ),
               width: 100,
               height: 140,
               fit: BoxFit.cover,

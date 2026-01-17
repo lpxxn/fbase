@@ -36,6 +36,18 @@ class _HomeViewState extends State<HomeView> {
     title: "",
     subTypes: [],
   );
+  // 热榜推荐
+  SpecialRecommendSection _inVogueSection = SpecialRecommendSection(
+    id: "",
+    title: "",
+    subTypes: [],
+  );
+  // 一站式推荐
+  SpecialRecommendSection _oneStopSection = SpecialRecommendSection(
+    id: "",
+    title: "",
+    subTypes: [],
+  );
 
   @override
   void initState() {
@@ -43,6 +55,8 @@ class _HomeViewState extends State<HomeView> {
     _getBannerList();
     _getCategoryList();
     _getSpecialRecommendSection();
+    _getInVogueList(); // 获取热榜推荐
+    _getOneStopList(); // 获取一站式推荐
   }
   // 获取推荐区块
 
@@ -50,6 +64,22 @@ class _HomeViewState extends State<HomeView> {
     final specialRecommendSection = await getSpecialRecommendSectionAPI();
     setState(() {
       _specialRecommendSection = specialRecommendSection;
+    });
+  }
+
+  // 获取热榜推荐
+  void _getInVogueList() async {
+    final inVogueSection = await getInVogueListAPI();
+    setState(() {
+      _inVogueSection = inVogueSection;
+    });
+  }
+
+  // 获取一站式推荐
+  void _getOneStopList() async {
+    final oneStopSection = await getOneStopListAPI();
+    setState(() {
+      _oneStopSection = oneStopSection;
     });
   }
 
@@ -83,15 +113,19 @@ class _HomeViewState extends State<HomeView> {
         child: Hmsuggestion(specialRecommendSection: _specialRecommendSection),
       ), // 推荐组件
       const SliverToBoxAdapter(child: SizedBox(height: 10)),
-      const SliverToBoxAdapter(
+      SliverToBoxAdapter(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Flex(
             direction: Axis.horizontal,
             children: [
-              Expanded(child: Hmhot()),
-              SizedBox(width: 10),
-              Expanded(child: Hmhot()),
+              Expanded(
+                child: Hmhot(rssult: _inVogueSection, type: "hot"),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Hmhot(rssult: _oneStopSection, type: "stop"),
+              ),
             ],
           ),
         ),
