@@ -17,3 +17,11 @@ Future<List<Category>> getCategoryListAPI() async {
       .toList();
   return ret;
 }
+
+Future<SpecialRecommendSection> getSpecialRecommendSectionAPI() async {
+  final responseData = await dioRequest.get(
+    HttpConstants.SPECIAL_RECOMMEND_SECTION,
+  );
+  final ret = SpecialRecommendSection.fromJson(responseData);
+  return ret;
+}

@@ -31,12 +31,26 @@ class _HomeViewState extends State<HomeView> {
   //     imgUrl: "https://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/meituan/3.jpg",
   //   ),
   // ];
+  SpecialRecommendSection _specialRecommendSection = SpecialRecommendSection(
+    id: "",
+    title: "",
+    subTypes: [],
+  );
 
   @override
   void initState() {
     super.initState();
     _getBannerList();
     _getCategoryList();
+    _getSpecialRecommendSection();
+  }
+  // 获取推荐区块
+
+  void _getSpecialRecommendSection() async {
+    final specialRecommendSection = await getSpecialRecommendSectionAPI();
+    setState(() {
+      _specialRecommendSection = specialRecommendSection;
+    });
   }
 
   void _getBannerList() async {
@@ -65,7 +79,9 @@ class _HomeViewState extends State<HomeView> {
         child: HmCategory(categoryItems: _categoryItems),
       ), // 分类组件
       const SliverToBoxAdapter(child: SizedBox(height: 10)),
-      const SliverToBoxAdapter(child: Hmsuggestion()), // 推荐组件
+      SliverToBoxAdapter(
+        child: Hmsuggestion(specialRecommendSection: _specialRecommendSection),
+      ), // 推荐组件
       const SliverToBoxAdapter(child: SizedBox(height: 10)),
       const SliverToBoxAdapter(
         child: Padding(

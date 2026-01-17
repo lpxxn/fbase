@@ -170,15 +170,19 @@ class SubType {
 }
 
 /// 推荐区块数据模型
-class RecommendSection {
+class SpecialRecommendSection {
   final String? id;
   final String? title;
   final List<SubType>? subTypes;
 
-  RecommendSection({required this.id, required this.title, this.subTypes});
+  SpecialRecommendSection({
+    required this.id,
+    required this.title,
+    this.subTypes,
+  });
 
   /// 从 JSON 创建 RecommendSection 对象
-  factory RecommendSection.fromJson(Map<String, dynamic> json) {
+  factory SpecialRecommendSection.fromJson(Map<String, dynamic> json) {
     List<SubType>? subTypesList;
     if (json['subTypes'] != null) {
       subTypesList = (json['subTypes'] as List)
@@ -186,7 +190,7 @@ class RecommendSection {
           .toList();
     }
 
-    return RecommendSection(
+    return SpecialRecommendSection(
       id: json['id']?.toString(),
       title: json['title']?.toString(),
       subTypes: subTypesList,
