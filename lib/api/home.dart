@@ -39,3 +39,16 @@ Future<SpecialRecommendSection> getOneStopListAPI() async {
   final ret = SpecialRecommendSection.fromJson(responseData);
   return ret;
 }
+
+Future<List<GoodDetailItem>> getRecommendListAPI(
+  Map<String, dynamic> params,
+) async {
+  final responseData = await dioRequest.get(
+    HttpConstants.RECOMMEND_LIST,
+    params: params,
+  );
+  final ret = (responseData as List)
+      .map((item) => GoodDetailItem.formJSON(item))
+      .toList();
+  return ret;
+}

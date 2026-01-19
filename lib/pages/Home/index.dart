@@ -83,6 +83,15 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
+  var _recommendList = [];
+
+  void _getRecommendList() async {
+    final recommendList = await getRecommendListAPI({"limit": 10});
+    setState(() {
+      _recommendList = recommendList;
+    });
+  }
+
   void _getBannerList() async {
     final bannerItems = await getBannerListAPI();
     setState(() {

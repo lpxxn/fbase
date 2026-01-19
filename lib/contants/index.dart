@@ -10,4 +10,5 @@ class HttpConstants {
   static const String SPECIAL_RECOMMEND_SECTION = "/hot/preference";
   static const IN_VOGUE_LIST = "/hot/inVogue"; // 热榜推荐
   static const ONE_STOP_LIST = "/hot/oneStop"; // 一站式推荐
+  static const RECOMMEND_LIST = "/home/recommend";
 }
