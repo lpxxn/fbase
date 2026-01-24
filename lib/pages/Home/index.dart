@@ -57,6 +57,7 @@ class _HomeViewState extends State<HomeView> {
     _getSpecialRecommendSection();
     _getInVogueList(); // 获取热榜推荐
     _getOneStopList(); // 获取一站式推荐
+    _getRecommendList(); // 获取推荐区块
   }
   // 获取推荐区块
 
@@ -83,13 +84,37 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
-  var _recommendList = [];
+  final _recommendList = [];
+
+  int _page = 1; // 当前页码
+  bool _isLoading = false; // 是否正在加载中
+  bool _hasMore = true; // 是否还有更多数据
 
   void _getRecommendList() async {
-    final recommendList = await getRecommendListAPI({"limit": 10});
-    setState(() {
-      _recommendList = recommendList;
-    });
+    if (_isLoading || !_hasMore) return; // 如果正在加载中或没有更多数据，则直接返回
+    _isLoading = true; // 设置为正在加载中
+    final int limit = _page * 10;
+    final recommendList = await getRecommendListAPI({"limit": limit});
+    _recommendList.addAll(recommendList);
+    _isLoading = false; // 加载完成后设置为false
+    setState(() {});
+    debugPrint("recommendList.length: ${recommendList.length}");
+    if (recommendList.length < limit) {
+      _hasMore = false; // 如果返回的数据少于10条，则没有更多数据了
+      return;
+    }
+    _page++; // 加载下一页
+  }
+
+  Future<void> _refresh() async {
+    _page = 1;
+    _isLoading = false; // 刷新时重置为false
+    _hasMore = true; // 刷新时重置为true
+    _getBannerList(); // 刷新时重新获取banner列表
+    _getCategoryList(); // 刷新时重新获取分类列表
+    _getInVogueList(); // 刷新时重新获取热榜推荐
+    _getOneStopList(); // 刷新时重新获取一站式推荐
+    _getRecommendList(); // 重新加载第一页数据
   }
 
   void _getBannerList() async {
@@ -140,7 +165,7 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
       const SliverToBoxAdapter(child: SizedBox(height: 10)),
-      const HmMoretList(),
+      HmMoretList(recommendList: _recommendList),
     ];
   }
 
