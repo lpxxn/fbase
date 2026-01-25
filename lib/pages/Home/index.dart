@@ -66,9 +66,9 @@ class _HomeViewState extends State<HomeView> {
   }
   // 获取推荐区块
 
-  void _getSpecialRecommendSection() async {
+  Future<void> _getSpecialRecommendSection() async {
     _specialRecommendSection = await getSpecialRecommendSectionAPI();
-    setState(() {});
+    // setState(() {});
   }
 
   // 获取热榜推荐
@@ -109,6 +109,7 @@ class _HomeViewState extends State<HomeView> {
     _isLoading = false; // 刷新时重置为false
     _hasMore = true; // 刷新时重置为true
     await _getBannerList(); // 刷新时重新获取banner列表
+    await _getSpecialRecommendSection(); // 刷新时重新获取一站式推荐
     await _getCategoryList(); // 刷新时重新获取分类列表
     await _getInVogueList(); // 刷新时重新获取热榜推荐
     await _getOneStopList(); // 刷新时重新获取一站式推荐
@@ -168,7 +169,8 @@ class _HomeViewState extends State<HomeView> {
       // debugPrint("pixels: ${_scrollController.position.pixels}");
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent - 50) {
-        _getRecommendList();
+        // _getRecommendList();
+        _refresh();
       }
     });
   }
