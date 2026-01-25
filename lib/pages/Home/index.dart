@@ -58,6 +58,7 @@ class _HomeViewState extends State<HomeView> {
     _getInVogueList(); // 获取热榜推荐
     _getOneStopList(); // 获取一站式推荐
     _getRecommendList(); // 获取推荐区块
+    _registerEvent();
   }
   // 获取推荐区块
 
@@ -169,8 +170,22 @@ class _HomeViewState extends State<HomeView> {
     ];
   }
 
+  final ScrollController _scrollController = ScrollController();
+  void _registerEvent() {
+    _scrollController.addListener(() {
+      debugPrint("pixels: ${_scrollController.position.pixels}");
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent - 50) {
+        _getRecommendList();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(slivers: _getScroolChildren());
+    return CustomScrollView(
+      controller: _scrollController,
+      slivers: _getScroolChildren(),
+    );
   }
 }
