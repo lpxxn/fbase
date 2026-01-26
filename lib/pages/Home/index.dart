@@ -61,6 +61,9 @@ class _HomeViewState extends State<HomeView> {
     // _getRecommendList(); // 获取推荐区块
     // _registerEvent();
     Future.microtask(() {
+      // _paddingTop = MediaQuery.of(context).padding.top;
+      _paddingTop = 100;
+      setState(() {});
       _refreshIndicatorKey.currentState?.show();
     });
   }
@@ -94,7 +97,6 @@ class _HomeViewState extends State<HomeView> {
     final recommendList = await getRecommendListAPI({"limit": limit});
     _recommendList.addAll(recommendList);
     _isLoading = false; // 加载完成后设置为false
-    setState(() {});
     debugPrint("recommendList.length: ${recommendList.length}");
     if (recommendList.length < limit) {
       _hasMore = false; // 如果返回的数据少于10条，则没有更多数据了
@@ -115,6 +117,8 @@ class _HomeViewState extends State<HomeView> {
     await _getOneStopList(); // 刷新时重新获取一站式推荐
     await _getRecommendList(); // 重新加载第一页数据
     ToastUtils.show(context, "刷新成功，共${_recommendList.length}条数据");
+    _paddingTop = 0;
+    setState(() {});
   }
 
   Future<void> _getBannerList() async {
@@ -180,14 +184,20 @@ class _HomeViewState extends State<HomeView> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
 
+  double _paddingTop = 0;
+
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
       key: _refreshIndicatorKey,
       onRefresh: _refresh,
-      child: CustomScrollView(
-        controller: _scrollController,
-        slivers: _getScroolChildren(),
+      child: AnimatedContainer(
+        padding: EdgeInsets.only(top: _paddingTop),
+        duration: const Duration(milliseconds: 300),
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: _getScroolChildren(),
+        ),
       ),
     );
   }
