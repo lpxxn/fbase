@@ -59,7 +59,7 @@ class _HomeViewState extends State<HomeView> {
     // _getInVogueList(); // 获取热榜推荐
     // _getOneStopList(); // 获取一站式推荐
     // _getRecommendList(); // 获取推荐区块
-    // _registerEvent();
+    _registerEvent();
     Future.microtask(() {
       // _paddingTop = MediaQuery.of(context).padding.top;
       _paddingTop = 100;
