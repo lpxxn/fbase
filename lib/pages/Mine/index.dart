@@ -117,12 +117,45 @@ class _MineViewState extends State<MineView> {
     );
   }
 
+  Widget _buildQuickActions() {
+    Widget item(String pic, String label) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(pic, width: 30, height: 30, fit: BoxFit.cover),
+          const SizedBox(height: 6),
+          Text(label, style: const TextStyle(fontSize: 12)),
+        ],
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            item("lib/asset/images/ic_user_collect.png", "我的收藏"),
+            item("lib/asset/images/ic_user_history.png", "我的足迹"),
+            item("lib/asset/images/ic_user_unevaluated.png", "我的客服"),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(child: _buildHeader()),
         SliverToBoxAdapter(child: _buildVipCard()),
+        SliverToBoxAdapter(child: _buildQuickActions()),
       ],
     );
   }
