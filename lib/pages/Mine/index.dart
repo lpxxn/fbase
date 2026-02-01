@@ -44,13 +44,75 @@ class _MineViewState extends State<MineView> {
         ),
       ),
       padding: const EdgeInsets.only(left: 20, right: 40, top: 80, bottom: 20),
-      child: const Row(
+      child: Row(
         children: [
-          CircleAvatar(
+          const CircleAvatar(
             radius: 26,
             backgroundImage: AssetImage("lib/asset/images/goods_avatar.png"),
           ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  onTap: () {},
+                  child: const Text(
+                    "登录",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildVipCard() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 240, 192, 155),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          ),
+        ),
+        child: Row(
+          children: [
+            Image.asset(
+              "lib/asset/images/ic_user_vip.png",
+              width: 30,
+              height: 30,
+            ),
+            const SizedBox(width: 10),
+            const Expanded(
+              child: Text(
+                '升级美荟商城会员，尊享无限免邮',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color.fromRGBO(126, 43, 26, 1),
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {},
+              style: TextButton.styleFrom(
+                backgroundColor: const Color.fromRGBO(126, 43, 26, 1),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18),
+                ),
+              ),
+              child: const Text('立即开通', style: TextStyle(fontSize: 12)),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -58,7 +120,10 @@ class _MineViewState extends State<MineView> {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
-      slivers: [SliverToBoxAdapter(child: _buildHeader())],
+      slivers: [
+        SliverToBoxAdapter(child: _buildHeader()),
+        SliverToBoxAdapter(child: _buildVipCard()),
+      ],
     );
   }
 }
