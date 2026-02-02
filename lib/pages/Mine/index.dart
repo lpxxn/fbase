@@ -149,6 +149,57 @@ class _MineViewState extends State<MineView> {
     );
   }
 
+  Widget _buildOrderModule() {
+    Widget orderItem(String pic, String label) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(pic, width: 30, height: 30, fit: BoxFit.cover),
+          const SizedBox(height: 6),
+          Text(
+            label,
+            style: const TextStyle(fontSize: 12, color: Colors.black),
+          ),
+        ],
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 2,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "订单管理",
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  orderItem("lib/asset/images/ic_user_order.png", "我的订单"),
+                  orderItem("lib/asset/images/ic_user_obligation.png", "待付款"),
+                  orderItem("lib/asset/images/ic_user_unreceived.png", "待发货"),
+                  orderItem("lib/asset/images/ic_user_unshipped.png", "待收货"),
+                  orderItem("lib/asset/images/ic_user_unevaluated.png", "待评价"),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -156,6 +207,7 @@ class _MineViewState extends State<MineView> {
         SliverToBoxAdapter(child: _buildHeader()),
         SliverToBoxAdapter(child: _buildVipCard()),
         SliverToBoxAdapter(child: _buildQuickActions()),
+        SliverToBoxAdapter(child: _buildOrderModule()),
       ],
     );
   }
