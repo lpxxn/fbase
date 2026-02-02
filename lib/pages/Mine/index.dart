@@ -180,7 +180,7 @@ class _MineViewState extends State<MineView> {
             children: [
               const Text(
                 "订单管理",
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
               Row(
