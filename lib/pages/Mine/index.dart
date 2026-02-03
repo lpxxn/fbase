@@ -1,3 +1,7 @@
+import 'package:fbase/api/mine.dart';
+import 'package:fbase/components/Home/HmMoretList.dart';
+import 'package:fbase/components/Mine/HmGues.dart';
+import 'package:fbase/viewmodels/home.dart';
 import 'package:flutter/material.dart';
 
 class MineView extends StatefulWidget {
@@ -201,13 +205,62 @@ class _MineViewState extends State<MineView> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getGuessList();
+    _registerEvent();
+  }
+
+  final List<GoodDetailItem> _list = [];
+  final Map<String, dynamic> _params = {"page": 1, "pageSize": 10};
+
+  void _registerEvent() {
+    _controller.addListener(() {
+      if (_controller.position.pixels <=
+          (_controller.position.maxScrollExtent - 50)) {
+        _getGuessList();
+      }
+    });
+  }
+
+  bool _isLoading = false;
+  bool _hasMore = true;
+  void _getGuessList() async {
+    if (_isLoading || !_hasMore) {
+      // 正在加载 或 没有更多数据
+      return;
+    }
+    _isLoading = true;
+    final res = await getGuessListAPI(_params);
+    _isLoading = false;
+    if (res.items.isEmpty) {
+      // 没有更多数据
+      _hasMore = false;
+      return;
+    }
+    _list.addAll(res.items);
+    setState(() {});
+    if (_params["page"] >= res.pages) {
+      // 没有更多数据
+      _hasMore = false;
+      return;
+    }
+    _params["page"]++;
+  }
+
+  final ScrollController _controller = ScrollController();
+  @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+      controller: _controller,
       slivers: [
         SliverToBoxAdapter(child: _buildHeader()),
         SliverToBoxAdapter(child: _buildVipCard()),
         SliverToBoxAdapter(child: _buildQuickActions()),
         SliverToBoxAdapter(child: _buildOrderModule()),
+        SliverPersistentHeader(delegate: HmGuess()),
+        HmMoretList(recommendList: _list),
       ],
     );
   }
