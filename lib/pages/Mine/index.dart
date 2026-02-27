@@ -60,7 +60,9 @@ class _MineViewState extends State<MineView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/login');
+                  },
                   child: const Text(
                     "登录",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
