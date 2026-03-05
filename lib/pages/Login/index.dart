@@ -2,6 +2,7 @@ import 'package:fbase/api/user.dart';
 import 'package:fbase/utils/LoadingDialog.dart';
 import 'package:fbase/utils/ToastUtils.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -66,6 +67,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  final Logger _logger = Logger();
   Future<void> _login() async {
     try {
       LoadingDialog.show(context, msg: "登录中...");
@@ -73,7 +75,8 @@ class _LoginPageState extends State<LoginPage> {
         "account": _phoneController.text,
         "password": _codeController.text,
       });
-      print("登录成功 ${res.toString()}");
+      // print("登录成功 ${res.toString()}");
+      _logger.i("登录成功 ${res.toString()}");
       ToastUtils.showToast(context, "登录成功");
       Navigator.of(context).pop(); // 返回上个页面
     } catch (e) {
