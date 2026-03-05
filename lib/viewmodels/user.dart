@@ -39,4 +39,8 @@ class UserInfo {
     provinceCode: json["provinceCode"] ?? "",
     token: json["token"] ?? "",
   );
+  @override
+  String toString() {
+    return 'UserInfo{account: $account, avatar: $avatar, birthday: $birthday, cityCode: $cityCode, gender: $gender, id: $id, mobile: $mobile, nickname: $nickname, profession: $profession, provinceCode: $provinceCode, token: $token}';
+  }
 }

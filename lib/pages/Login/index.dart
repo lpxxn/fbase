@@ -52,6 +52,7 @@ class _LoginPageState extends State<LoginPage> {
         return null;
       },
       controller: _codeController,
+      obscureText: true,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.only(left: 20),
         hintText: "请输入验证码",
@@ -72,6 +73,7 @@ class _LoginPageState extends State<LoginPage> {
         "account": _phoneController.text,
         "password": _codeController.text,
       });
+      print("登录成功 ${res.toString()}");
       ToastUtils.showToast(context, "登录成功");
       Navigator.of(context).pop(); // 返回上个页面
     } catch (e) {
